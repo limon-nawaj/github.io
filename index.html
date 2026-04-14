@@ -3,622 +3,143 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Md Shahnawaj Alom Limon — Software Engineer & Researcher</title>
+<title>Md Shahnawaj Alom Limon — Software Engineer & ML Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --ink:      #0a0a0f;
-    --ink-2:    #12121a;
-    --ink-3:    #1c1c2a;
-    --line:     #2a2a3a;
-    --muted:    #5a5a78;
-    --body:     #b0b0c8;
-    --light:    #dcdcf0;
-    --white:    #f4f4fa;
-    --gold:     #c8a96e;
-    --gold-dim: #8a7248;
-    --teal:     #4ecdc4;
-    --teal-dim: #2a8a84;
-    --radius:   4px;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--ink);
-    color: var(--body);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* ── Custom Cursor ── */
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s;
-  }
-  .cursor-ring {
-    width: 32px; height: 32px;
-    border: 1px solid rgba(200,169,110,0.5);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: all 0.25s ease;
-  }
-  body:hover .cursor-ring { opacity: 1; }
-
-  /* ── Noise overlay ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none; z-index: 1000;
-  }
-
-  /* ── Layout ── */
-  .container { max-width: 1160px; margin: 0 auto; padding: 0 40px; }
-
-  /* ── Nav ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 500;
-    padding: 24px 40px;
-    display: flex; align-items: center; justify-content: space-between;
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.4s, background 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(10,10,15,0.85);
-    border-bottom-color: var(--line);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 40px; list-style: none; }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-
-  /* ── Hero ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    position: relative; overflow: hidden;
-    padding: 120px 0 80px;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 420px;
-    gap: 80px; align-items: center;
-  }
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 7vw, 96px);
-    font-weight: 300;
-    line-height: 1.0;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--gold);
-  }
-  .hero-title {
-    margin-top: 28px;
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--light);
-    opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
-    line-height: 1.6;
-  }
-  .hero-title strong { color: var(--white); font-weight: 500; }
-  .hero-desc {
-    margin-top: 20px;
-    max-width: 540px;
-    color: var(--muted);
-    font-size: 15px;
-    opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
-  }
-  .hero-ctas {
-    margin-top: 44px;
-    display: flex; gap: 16px; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 32px;
-    background: var(--gold);
-    color: var(--ink);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius);
-    font-weight: 500;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .btn-primary:hover { background: #dfc080; transform: translateY(-2px); }
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 13px 32px;
-    border: 1px solid var(--line);
-    color: var(--light);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius);
-    transition: border-color 0.2s, color 0.2s, transform 0.2s;
-  }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-  /* Hero card */
-  .hero-card {
-    background: var(--ink-2);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 40px;
-    position: relative; overflow: hidden;
-    opacity: 0; animation: fadeIn 1s 0.9s forwards;
-  }
-  .hero-card::before {
-    content: '';
-    position: absolute; top: 0; right: 0;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(200,169,110,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .card-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(200,169,110,0.1);
-    border: 1px solid rgba(200,169,110,0.25);
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-    margin-bottom: 28px;
-  }
-  .card-badge::before { content: '●'; font-size: 8px; color: #4caf50; }
-  .card-stat { margin-bottom: 20px; }
-  .card-stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-  }
-  .card-stat-num span { color: var(--gold); }
-  .card-stat-label {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  .card-divider { height: 1px; background: var(--line); margin: 24px 0; }
-  .card-skills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .card-tag {
-    background: var(--ink-3);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 5px 12px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--body);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── Section common ── */
-  section { padding: 100px 0; }
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 48px;
-  }
-  .section-title em { font-style: italic; color: var(--gold); }
-  .section-line {
-    width: 60px; height: 1px;
-    background: var(--gold-dim);
-    margin-bottom: 16px;
-  }
-
-  /* Reveal animation */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── About ── */
-  #about { border-top: 1px solid var(--line); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: start;
-  }
-  .about-text p { color: var(--body); margin-bottom: 20px; font-size: 15px; }
-  .about-text p strong { color: var(--light); font-weight: 500; }
-  .award-chip {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(200,169,110,0.04));
-    border: 1px solid rgba(200,169,110,0.3);
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--light);
-  }
-  .award-icon { font-size: 22px; }
-  .timeline { list-style: none; }
-  .timeline li {
-    position: relative;
-    padding-left: 24px;
-    margin-bottom: 32px;
-  }
-  .timeline li::before {
-    content: '';
-    position: absolute; left: 0; top: 8px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--gold-dim);
-    border: 2px solid var(--gold);
-  }
-  .timeline li::after {
-    content: '';
-    position: absolute; left: 3px; top: 20px;
-    width: 1px; height: calc(100% + 12px);
-    background: var(--line);
-  }
-  .timeline li:last-child::after { display: none; }
-  .tl-year {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-  .tl-role {
-    font-size: 15px;
-    color: var(--white);
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
-  .tl-org { font-size: 13px; color: var(--muted); }
-
-  /* ── Skills ── */
-  #skills { background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .skill-card {
-    background: var(--ink-3);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 32px;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .skill-card:hover {
-    border-color: var(--gold-dim);
-    transform: translateY(-4px);
-  }
-  .skill-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .skill-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-  .skill-list {
-    list-style: none;
-    display: flex; flex-wrap: wrap; gap: 8px;
-    margin-top: 16px;
-  }
-  .skill-list li {
-    background: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 4px 10px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--body);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── Projects ── */
-  #projects { border-top: 1px solid var(--line); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  .project-card {
-    background: var(--ink-2);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 36px;
-    position: relative; overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    text-decoration: none;
-    display: block;
-  }
-  .project-card::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(200,169,110,0.05) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .project-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
-  .project-card:hover::after { opacity: 1; }
-  .project-card.featured {
-    grid-column: span 2;
-    background: linear-gradient(135deg, var(--ink-2) 70%, var(--ink-3));
-  }
-  .project-category {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-  .project-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .project-card.featured .project-title { font-size: 36px; }
-  .project-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 24px;
-  }
-  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .project-tag {
-    background: rgba(78,205,196,0.08);
-    border: 1px solid rgba(78,205,196,0.2);
-    border-radius: 4px;
-    padding: 4px 10px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--teal);
-    letter-spacing: 0.05em;
-  }
-  .project-arrow {
-    position: absolute; right: 28px; top: 28px;
-    font-size: 20px; color: var(--line);
-    transition: color 0.2s, transform 0.2s;
-  }
-  .project-card:hover .project-arrow { color: var(--gold); transform: translate(3px,-3px); }
-
-  /* ── Research ── */
-  #research { background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .research-card {
-    background: var(--ink-3);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--gold);
-    border-radius: 0 8px 8px 0;
-    padding: 36px 40px;
-    margin-bottom: 20px;
-    transition: border-left-color 0.2s;
-  }
-  .research-card:hover { border-left-color: var(--teal); }
-  .research-venue {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .research-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-  .research-authors {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-  .research-authors strong { color: var(--light); }
-  .research-abstract {
-    font-size: 14px;
-    color: var(--body);
-    line-height: 1.65;
-  }
-  .interest-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-top: 40px;
-  }
-  .interest-item {
-    background: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 24px 20px;
-    text-align: center;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .interest-item:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
-  .interest-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-  .interest-label {
-    font-size: 13px;
-    color: var(--light);
-    font-weight: 500;
-  }
-  .interest-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
-
-  /* ── Contact ── */
-  #contact { border-top: 1px solid var(--line); }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-  }
-  .contact-links { list-style: none; margin-top: 32px; }
-  .contact-links li {
-    border-bottom: 1px solid var(--line);
-  }
-  .contact-links a {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 0;
-    text-decoration: none;
-    color: var(--body);
-    font-size: 15px;
-    transition: color 0.2s, padding-left 0.2s;
-  }
-  .contact-links a:hover { color: var(--gold); padding-left: 8px; }
-  .contact-links a span:last-child { font-size: 18px; }
-  .contact-note {
-    background: var(--ink-2);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 40px;
-  }
-  .contact-note h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-  .contact-note p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
-  .status-row {
-    display: flex; align-items: center; gap: 10px;
-    margin-top: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--body);
-  }
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #4caf50;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
-  }
-
-  /* ── Footer ── */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 32px 0;
-    display: flex; align-items: center; justify-content: space-between;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-  footer span { color: var(--gold); }
-
-  /* ── Background decoration ── */
-  .bg-circle {
-    position: absolute; border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  /* ── Keyframes ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: none; }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 900px) {
-    .container { padding: 0 24px; }
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
-    .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card.featured { grid-column: span 1; }
-    .interest-grid { grid-template-columns: repeat(2, 1fr); }
-    body { cursor: auto; }
-    .cursor-dot, .cursor-ring { display: none; }
+    --ink:#0a0a0f;--ink-2:#12121a;--ink-3:#1c1c2a;--line:#2a2a3a;
+    --muted:#5a5a78;--body:#b0b0c8;--light:#dcdcf0;--white:#f4f4fa;
+    --gold:#c8a96e;--gold-dim:#8a7248;--teal:#4ecdc4;--radius:4px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--body);font-family:'Outfit',sans-serif;font-weight:300;font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none}
+  .cursor-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .cursor-ring{width:32px;height:32px;border:1px solid rgba(200,169,110,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.25s ease}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:1000}
+  .container{max-width:1160px;margin:0 auto;padding:0 40px}
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color 0.4s,background 0.4s}
+  nav.scrolled{background:rgba(10,10,15,0.88);border-bottom-color:var(--line)}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);text-decoration:none;letter-spacing:0.02em}
+  .nav-logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:40px;list-style:none}
+  .nav-links a{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--gold)}
+  #hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center}
+  .hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+  .hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1.0;color:var(--white);letter-spacing:-0.02em;opacity:0;animation:fadeUp 0.9s 0.35s forwards}
+  .hero-name em{font-style:italic;color:var(--gold)}
+  .hero-title{margin-top:28px;font-size:18px;font-weight:300;color:var(--light);opacity:0;animation:fadeUp 0.9s 0.5s forwards;line-height:1.6}
+  .hero-title strong{color:var(--white);font-weight:500}
+  .hero-desc{margin-top:20px;max-width:540px;color:var(--muted);font-size:15px;opacity:0;animation:fadeUp 0.9s 0.65s forwards}
+  .hero-ctas{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s 0.8s forwards}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--gold);color:var(--ink);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:var(--radius);font-weight:500;transition:background 0.2s,transform 0.2s}
+  .btn-primary:hover{background:#dfc080;transform:translateY(-2px)}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 32px;border:1px solid var(--line);color:var(--light);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:var(--radius);transition:border-color 0.2s,color 0.2s,transform 0.2s}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+  .hero-card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:40px;position:relative;overflow:hidden;opacity:0;animation:fadeIn 1s 0.9s forwards}
+  .hero-card::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(200,169,110,0.12) 0%,transparent 70%);pointer-events:none}
+  .card-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);border-radius:100px;padding:6px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.08em;margin-bottom:28px}
+  .card-badge::before{content:'●';font-size:8px;color:#4caf50}
+  .card-stat{margin-bottom:20px}
+  .card-stat-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--white);line-height:1}
+  .card-stat-num span{color:var(--gold)}
+  .card-stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+  .card-divider{height:1px;background:var(--line);margin:24px 0}
+  .card-skills{display:flex;flex-wrap:wrap;gap:8px}
+  .card-tag{background:var(--ink-3);border:1px solid var(--line);border-radius:4px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--body);letter-spacing:0.05em}
+  section{padding:100px 0}
+  .section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:var(--white);line-height:1.1;letter-spacing:-0.02em;margin-bottom:48px}
+  .section-title em{font-style:italic;color:var(--gold)}
+  .section-line{width:60px;height:1px;background:var(--gold-dim);margin-bottom:16px}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal.visible{opacity:1;transform:none}
+  #about{border-top:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .about-text p{color:var(--body);margin-bottom:20px;font-size:15px}
+  .about-text p strong{color:var(--light);font-weight:500}
+  .award-chip{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(200,169,110,0.12),rgba(200,169,110,0.04));border:1px solid rgba(200,169,110,0.3);border-radius:8px;padding:16px 20px;margin-top:8px;font-size:14px;color:var(--light)}
+  .award-icon{font-size:22px}
+  .timeline{list-style:none}
+  .timeline li{position:relative;padding-left:24px;margin-bottom:32px}
+  .timeline li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--gold-dim);border:2px solid var(--gold)}
+  .timeline li::after{content:'';position:absolute;left:3px;top:20px;width:1px;height:calc(100% + 12px);background:var(--line)}
+  .timeline li:last-child::after{display:none}
+  .tl-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.1em;margin-bottom:4px}
+  .tl-role{font-size:15px;color:var(--white);font-weight:500;margin-bottom:2px}
+  .tl-org{font-size:13px;color:var(--muted)}
+  #skills{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .skill-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:32px;transition:border-color 0.3s,transform 0.3s}
+  .skill-card:hover{border-color:var(--gold-dim);transform:translateY(-4px)}
+  .skill-icon{font-size:28px;margin-bottom:16px;display:block}
+  .skill-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:12px}
+  .skill-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .skill-list li{background:var(--ink);border:1px solid var(--line);border-radius:4px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--body);letter-spacing:0.05em}
+  #projects{border-top:1px solid var(--line)}
+  .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .project-card{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:36px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;text-decoration:none;display:block}
+  .project-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(200,169,110,0.05) 0%,transparent 60%);opacity:0;transition:opacity 0.3s}
+  .project-card:hover{border-color:var(--gold-dim);transform:translateY(-4px)}
+  .project-card:hover::after{opacity:1}
+  .project-card.featured{grid-column:span 2;background:linear-gradient(135deg,var(--ink-2) 70%,var(--ink-3))}
+  .project-category{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .project-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.2}
+  .project-card.featured .project-title{font-size:36px}
+  .project-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+  .project-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .project-tag{background:rgba(78,205,196,0.08);border:1px solid rgba(78,205,196,0.2);border-radius:4px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:0.05em}
+  .project-arrow{position:absolute;right:28px;top:28px;font-size:20px;color:var(--line);transition:color 0.2s,transform 0.2s}
+  .project-card:hover .project-arrow{color:var(--gold);transform:translate(3px,-3px)}
+  #research{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .research-card{background:var(--ink-3);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:36px 40px;margin-bottom:20px;transition:border-left-color 0.2s}
+  .research-card:hover{border-left-color:var(--teal)}
+  .research-venue{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+  .research-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.3}
+  .research-authors{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .research-authors strong{color:var(--light)}
+  .research-abstract{font-size:14px;color:var(--body);line-height:1.65}
+  .interest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+  .interest-item{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:24px 20px;text-align:center;transition:border-color 0.2s,transform 0.2s}
+  .interest-item:hover{border-color:var(--gold-dim);transform:translateY(-3px)}
+  .interest-icon{font-size:28px;margin-bottom:12px;display:block}
+  .interest-label{font-size:13px;color:var(--light);font-weight:500}
+  .interest-sub{font-size:12px;color:var(--muted);margin-top:4px}
+  #contact{border-top:1px solid var(--line)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .contact-links{list-style:none;margin-top:32px}
+  .contact-links li{border-bottom:1px solid var(--line)}
+  .contact-links a{display:flex;align-items:center;justify-content:space-between;padding:20px 0;text-decoration:none;color:var(--body);font-size:15px;transition:color 0.2s,padding-left 0.2s}
+  .contact-links a:hover{color:var(--gold);padding-left:8px}
+  .contact-links a span:last-child{font-size:18px}
+  .contact-note{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:40px}
+  .contact-note h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:16px}
+  .contact-note p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+  .status-row{display:flex;align-items:center;gap:10px;margin-top:20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--body)}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:#4caf50;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  footer{border-top:1px solid var(--line);padding:32px 0;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em}
+  footer span{color:var(--gold)}
+  .bg-circle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,169,110,0.07) 0%,transparent 70%);pointer-events:none}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @media(max-width:900px){
+    .container{padding:0 24px}nav{padding:20px 24px}.nav-links{display:none}
+    .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
+    .skills-grid{grid-template-columns:1fr 1fr}.projects-grid{grid-template-columns:1fr}
+    .project-card.featured{grid-column:span 1}.interest-grid{grid-template-columns:repeat(2,1fr)}
+    body{cursor:auto}.cursor-dot,.cursor-ring{display:none}
   }
 </style>
 </head>
 <body>
-
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="nav-logo">L<span>.</span>imon</a>
   <ul class="nav-links">
@@ -630,27 +151,26 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="bg-circle" style="width:600px;height:600px;top:-100px;right:-100px;"></div>
   <div class="bg-circle" style="width:400px;height:400px;bottom:0;left:-150px;"></div>
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="hero-eyebrow">Software Engineer · Researcher · Builder</div>
+        <div class="hero-eyebrow">Software Engineer · ML Engineer · Researcher</div>
         <h1 class="hero-name">Md Shahnawaj<br>Alom <em>Limon</em></h1>
         <p class="hero-title">
-          <strong>MS Computer Science</strong> · Illinois State University<br>
-          Graduate Assistant · Enterprise Data Analytics
+          <strong>M.S. Computer Science</strong> · Illinois State University<br>
+          Data Analytics · Graduating May 2026
         </p>
         <p class="hero-desc">
-          8+ years building enterprise software across Bangladesh and Vietnam. Now pushing into trustworthy AI — 
-          fairness, explainability, and robustness. Graduating May 2026, targeting PhD and industry research roles.
+          8+ years building enterprise-scale distributed systems across banking, transit, and education verticals.
+          Combining deep Java/Spring backend expertise with applied ML — recommendation systems, NLP pipelines, and algorithmic fairness research.
         </p>
         <div class="hero-ctas">
-          <a href="mailto:limon.nawaj@gmail.com" class="btn-primary">↗ Get in Touch</a>
+          <a href="mailto:mlimon3@ilstu.edu" class="btn-primary">↗ Get in Touch</a>
           <a href="https://github.com/limon-nawaj" target="_blank" class="btn-outline">GitHub ↗</a>
-          <a href="https://www.linkedin.com/in/limon-nawaj/" target="_blank" class="btn-outline">LinkedIn ↗</a>
+          <a href="https://www.linkedin.com/in/shahnawaj-alom-limon-21830745/" target="_blank" class="btn-outline">LinkedIn ↗</a>
         </div>
       </div>
       <div class="hero-card reveal">
@@ -661,25 +181,25 @@
         </div>
         <div class="card-divider"></div>
         <div class="card-stat">
-          <div class="card-stat-num">40<span>+</span></div>
-          <div class="card-stat-label">Languages supported in Meeting Assistant app</div>
+          <div class="card-stat-num">2<span>×</span></div>
+          <div class="card-stat-label">Distinguished Graduate Student Award — ISU 2025 &amp; 2026</div>
         </div>
         <div class="card-divider"></div>
         <div class="card-skills">
-          <span class="card-tag">Java/Spring Boot</span>
+          <span class="card-tag">Java / Spring Boot</span>
+          <span class="card-tag">Hibernate</span>
+          <span class="card-tag">Kafka</span>
           <span class="card-tag">Python</span>
+          <span class="card-tag">NLP</span>
+          <span class="card-tag">ML / AI</span>
           <span class="card-tag">React</span>
-          <span class="card-tag">Oracle SQL</span>
-          <span class="card-tag">FastAPI</span>
-          <span class="card-tag">ML/AI</span>
-          <span class="card-tag">Android</span>
+          <span class="card-tag">Docker</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="container">
     <div class="about-grid">
@@ -688,13 +208,13 @@
         <div class="section-label">About Me</div>
         <h2 class="section-title">Engineer who<br><em>asks why</em></h2>
         <div class="about-text">
-          <p>I started my career building large-scale enterprise ERP systems in Bangladesh and later spent time at FPT Software in Vietnam, one of Southeast Asia's largest tech companies. That decade sharpened my instincts for systems that have to work reliably at scale.</p>
-          <p>Graduate school pulled me toward a different question: <strong>what happens when the system is wrong, and who does it hurt?</strong> That's the thread connecting my thesis work on AI career advisors, my research on demographic bias in LLMs, and my aspiration to pursue a PhD in trustworthy machine learning.</p>
-          <p>Outside research, I ship products. Meeting Assistant launched on Google Play with real-time transcription across 40+ languages, AI-generated answers in STAR format, and stealth mode for sensitive contexts.</p>
+          <p>I started my career building enterprise ERP systems in Bangladesh, then moved to Vietnam where I spent time at FPT Software architecting microservice-based banking platforms handling millions of daily transactions. That decade gave me deep instincts for distributed systems that have to work reliably at scale.</p>
+          <p>Graduate school shifted my focus to a harder problem: <strong>what happens when the ML system is wrong, and who does it hurt?</strong> That question drives my thesis on AI career advisors and my ongoing research into demographic bias in LLM-generated recommendations.</p>
+          <p>I sit at the intersection of <strong>backend engineering and applied ML</strong> — able to build the system and question whether it should be trusted.</p>
           <div class="award-chip">
             <span class="award-icon">🏆</span>
             <div>
-              <div style="font-weight:500;color:var(--white);font-size:14px;">Distinguished Graduate Student Award</div>
+              <div style="font-weight:500;color:var(--white);font-size:14px;">Distinguished Graduate Student Award — 2025 &amp; 2026</div>
               <div style="font-size:12px;color:var(--muted);">ISU School of Information Technology</div>
             </div>
           </div>
@@ -705,27 +225,32 @@
         <ul class="timeline">
           <li>
             <div class="tl-year">2024 – Present</div>
-            <div class="tl-role">Graduate Assistant — Enterprise Data Analytics</div>
+            <div class="tl-role">Data Analytics</div>
             <div class="tl-org">Illinois State University · Normal, IL</div>
           </li>
           <li>
-            <div class="tl-year">2023 – 2024</div>
-            <div class="tl-role">MS Computer Science</div>
+            <div class="tl-year">2024 – 2026</div>
+            <div class="tl-role">M.S. Computer Science</div>
             <div class="tl-org">Illinois State University · Graduating May 2026</div>
           </li>
           <li>
             <div class="tl-year">2021 – 2023</div>
-            <div class="tl-role">Full Stack Java Developer</div>
-            <div class="tl-org">FPT Software · Ho Chi Minh City, Vietnam</div>
+            <div class="tl-role">Full Stack Software Engineer</div>
+            <div class="tl-org">FPT Software · Hanoi, Vietnam</div>
           </li>
           <li>
-            <div class="tl-year">2018 – 2021</div>
+            <div class="tl-year">2019 – 2020</div>
             <div class="tl-role">Senior Software Engineer</div>
-            <div class="tl-org">IST Vietnam · Ho Chi Minh City, Vietnam</div>
+            <div class="tl-org">IST Vietnam · Hanoi, Vietnam</div>
           </li>
           <li>
-            <div class="tl-year">2015 – 2018</div>
-            <div class="tl-role">Software Engineer — Educational ERP (Built from scratch)</div>
+            <div class="tl-year">2016 – 2018</div>
+            <div class="tl-role">Software Engineer</div>
+            <div class="tl-org">MDB Corporation Ltd · Dhaka, Bangladesh</div>
+          </li>
+          <li>
+            <div class="tl-year">2014 – 2015</div>
+            <div class="tl-role">Junior Software Engineer</div>
             <div class="tl-org">Daffodil International Academy · Dhaka, Bangladesh</div>
           </li>
         </ul>
@@ -734,7 +259,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="container">
     <div class="reveal">
@@ -744,64 +268,65 @@
     </div>
     <div class="skills-grid">
       <div class="skill-card reveal">
-        <span class="skill-icon">⚙️</span>
-        <h3>Backend Engineering</h3>
-        <p style="font-size:13px;color:var(--muted);">Enterprise-scale systems built for reliability and correctness.</p>
+        <span class="skill-icon">☕</span>
+        <h3>Java Ecosystem</h3>
+        <p style="font-size:13px;color:var(--muted);">Deep enterprise Java across the full stack.</p>
         <ul class="skill-list">
-          <li>Java</li><li>Spring Boot</li><li>FastAPI</li><li>Python</li>
-          <li>REST APIs</li><li>PostgreSQL</li><li>Oracle SQL</li><li>Redis</li>
+          <li>Java / JEE</li><li>Spring Boot</li><li>Spring MVC</li><li>Spring Security</li>
+          <li>Hibernate</li><li>JPA</li><li>JDBC</li><li>Maven</li>
+          <li>Gradle</li><li>JUnit</li><li>Mockito</li><li>Lombok</li>
         </ul>
       </div>
       <div class="skill-card reveal">
-        <span class="skill-icon">🖥️</span>
-        <h3>Frontend & Mobile</h3>
-        <p style="font-size:13px;color:var(--muted);">From dashboards to production Android apps with 40+ language support.</p>
+        <span class="skill-icon">⚙️</span>
+        <h3>Backend &amp; Architecture</h3>
+        <p style="font-size:13px;color:var(--muted);">Distributed systems built for millions of transactions.</p>
         <ul class="skill-list">
-          <li>React</li><li>TypeScript</li><li>Android/Kotlin</li>
-          <li>Streamlit</li><li>Jetpack Compose</li><li>HTML/CSS</li>
+          <li>Microservices</li><li>REST APIs</li><li>Kafka</li>
+          <li>Design Patterns</li><li>CQRS</li><li>Saga</li>
+          <li>Multithreading</li><li>Parallel Programming</li>
         </ul>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">🤖</span>
-        <h3>AI / ML / Data</h3>
-        <p style="font-size:13px;color:var(--muted);">Applied ML with a focus on fairness, explainability, and real-world deployment.</p>
+        <h3>AI / ML</h3>
+        <p style="font-size:13px;color:var(--muted);">Applied ML with a fairness-first lens.</p>
         <ul class="skill-list">
-          <li>Python</li><li>Pandas</li><li>scikit-learn</li><li>NLP</li>
-          <li>LLM APIs</li><li>PCA</li><li>Data Pipelines</li>
+          <li>NLP</li><li>Text Classification</li><li>Recommendation Systems</li>
+          <li>Algorithmic Fairness</li><li>Predictive Modeling</li>
+          <li>scikit-learn</li><li>Pandas</li><li>NumPy</li>
         </ul>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">🗄️</span>
-        <h3>Data & Analytics</h3>
-        <p style="font-size:13px;color:var(--muted);">Complex Oracle SQL, PeopleSoft data systems, and retention analytics.</p>
+        <h3>Databases</h3>
+        <p style="font-size:13px;color:var(--muted);">Relational and NoSQL at enterprise scale.</p>
         <ul class="skill-list">
-          <li>Oracle SQL</li><li>PeopleSoft</li><li>ETL</li>
-          <li>Tableau</li><li>Student Analytics</li>
+          <li>Oracle</li><li>PostgreSQL</li><li>MySQL</li>
+          <li>MongoDB</li><li>Cassandra</li><li>Redis</li>
         </ul>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">☁️</span>
-        <h3>Infrastructure</h3>
-        <p style="font-size:13px;color:var(--muted);">Deployment, containers, and cloud-native architecture.</p>
+        <h3>Cloud &amp; DevOps</h3>
+        <p style="font-size:13px;color:var(--muted);">CI/CD, containers, and cloud-native delivery.</p>
         <ul class="skill-list">
-          <li>Docker</li><li>Firebase</li><li>GitHub Actions</li>
-          <li>SLURM / HPC</li><li>Linux</li><li>MPI / OpenMP</li>
+          <li>AWS</li><li>Google Cloud</li><li>Docker</li>
+          <li>Jenkins</li><li>Git</li><li>Jira</li>
         </ul>
       </div>
       <div class="skill-card reveal">
-        <span class="skill-icon">🔬</span>
-        <h3>Research Methods</h3>
-        <p style="font-size:13px;color:var(--muted);">Rigorous empirical analysis and academic writing for top AI venues.</p>
+        <span class="skill-icon">🖥️</span>
+        <h3>Frontend &amp; Visualization</h3>
+        <p style="font-size:13px;color:var(--muted);">From analytics dashboards to full React SPAs.</p>
         <ul class="skill-list">
-          <li>Algorithmic Fairness</li><li>Bias Evaluation</li>
-          <li>LLM Benchmarking</li><li>Statistical Analysis</li>
+          <li>React</li><li>Angular</li><li>TypeScript</li><li>Streamlit</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
     <div class="reveal">
@@ -810,83 +335,63 @@
       <h2 class="section-title">Things I've <em>built</em></h2>
     </div>
     <div class="projects-grid">
-
-      <!-- Featured -->
-      <a href="https://play.google.com/store/apps/details?id=com.limon.meetingassistant" target="_blank" class="project-card featured reveal">
+      <div class="project-card featured reveal">
         <span class="project-arrow">↗</span>
-        <div class="project-category">Android App · Live on Google Play</div>
-        <div class="project-title">Meeting Assistant</div>
-        <p class="project-desc">
-          Real-time transcription across 40+ languages with AI-generated answers in Brief, Standard, and STAR formats. 
-          Features Stealth Mode, live translation, mock interview practice, automatic session summaries, 
-          and multilingual Play Store listings in 11 languages. Built for professionals who need to perform under pressure.
-        </p>
-        <div class="project-tags">
-          <span class="project-tag">Android</span>
-          <span class="project-tag">Kotlin</span>
-          <span class="project-tag">Whisper API</span>
-          <span class="project-tag">Firebase</span>
-          <span class="project-tag">LLM</span>
-          <span class="project-tag">40+ Languages</span>
-        </div>
-      </a>
-
-      <div class="project-card reveal">
-        <span class="project-arrow">↗</span>
-        <div class="project-category">Thesis Project · Research</div>
+        <div class="project-category">M.S. Thesis · NLP · Algorithmic Fairness</div>
         <div class="project-title">AI-Powered Career Advisor</div>
-        <p class="project-desc">
-          Full-stack career guidance platform with resume management, skills tracking, job matching, and mock interview features. 
-          Research substrate for studying algorithmic fairness and bias in NLP-driven recommendation systems.
-        </p>
+        <p class="project-desc">End-to-end NLP pipeline combining named entity recognition and document classification for resume parsing, paired with collaborative and content-based filtering for personalized career matching. Research focus: investigating demographic bias and fairness mitigation across gender, race, and socioeconomic signals in AI-driven recommendation systems. Validated through structured user studies.</p>
         <div class="project-tags">
-          <span class="project-tag">React</span>
+          <span class="project-tag">React / TypeScript</span>
           <span class="project-tag">FastAPI</span>
           <span class="project-tag">PostgreSQL</span>
           <span class="project-tag">NLP</span>
+          <span class="project-tag">Algorithmic Fairness</span>
           <span class="project-tag">JWT Auth</span>
         </div>
       </div>
-
+      <div class="project-card reveal">
+        <span class="project-arrow">↗</span>
+        <div class="project-category">Enterprise · Transit · Distributed Systems</div>
+        <div class="project-title">Automated Fare Collection System</div>
+        <p class="project-desc">Maintained and enhanced a large-scale AFC platform deployed across 200+ cities and 500K+ devices globally. Processed millions of daily transit transactions with sub-100ms latency and 99.8% uptime. Contributed to back-office clearing, account-based ticketing, and ridership data pipelines.</p>
+        <div class="project-tags">
+          <span class="project-tag">Java</span>
+          <span class="project-tag">Spring Boot</span>
+          <span class="project-tag">Microservices</span>
+          <span class="project-tag">Kafka</span>
+          <span class="project-tag">Google Cloud</span>
+        </div>
+      </div>
       <div class="project-card reveal">
         <span class="project-arrow">↗</span>
         <div class="project-category">Analytics · Higher Education</div>
         <div class="project-title">Student Retention Dashboards</div>
-        <p class="project-desc">
-          Python/Streamlit dashboards deployed via Docker, querying complex PeopleSoft Oracle data. Surfacing enrollment trends, 
-          degree completion, and tutoring effectiveness across student populations for ISU leadership.
-        </p>
+        <p class="project-desc">Python/Streamlit dashboards deployed via Docker, querying institutional Oracle data warehouses. Surfaces enrollment trends, degree completion rates, and tutoring effectiveness metrics for university leadership through complex multi-join SQL queries.</p>
         <div class="project-tags">
           <span class="project-tag">Python</span>
           <span class="project-tag">Streamlit</span>
           <span class="project-tag">Oracle SQL</span>
           <span class="project-tag">Docker</span>
-          <span class="project-tag">PeopleSoft</span>
+          <span class="project-tag">ML Modeling</span>
         </div>
       </div>
-
       <div class="project-card reveal">
         <span class="project-arrow">↗</span>
-        <div class="project-category">Concept · AI Platform</div>
-        <div class="project-title">Sage — Academic Second Brain</div>
-        <p class="project-desc">
-          Designed a vertical AI platform for researchers with semantic search, on-device Whisper transcription, 
-          and Claude API integration. Four-phase roadmap from MVP to multi-agent knowledge synthesis.
-        </p>
+        <div class="project-category">Enterprise ERP · Full Stack</div>
+        <div class="project-title">Educational ERP Platform</div>
+        <p class="project-desc">Built from scratch — centralized ERP managing 5,000+ users and academic records across 20+ school branches. Role-based access control, financial record management, and automated reporting. Reduced reconciliation errors by 95% through automated validation pipelines.</p>
         <div class="project-tags">
-          <span class="project-tag">Kotlin</span>
-          <span class="project-tag">FastAPI</span>
-          <span class="project-tag">pgvector</span>
-          <span class="project-tag">Whisper</span>
-          <span class="project-tag">Claude API</span>
+          <span class="project-tag">Java / JEE</span>
+          <span class="project-tag">Spring</span>
+          <span class="project-tag">Oracle</span>
+          <span class="project-tag">RBAC</span>
+          <span class="project-tag">Multi-branch</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- RESEARCH -->
 <section id="research">
   <div class="container">
     <div class="reveal">
@@ -894,44 +399,21 @@
       <div class="section-label">Research</div>
       <h2 class="section-title">Where I'm <em>pushing</em></h2>
     </div>
-
     <div class="research-card reveal">
-      <div class="research-venue">In Preparation · Target: AIES / FAccT 2025–26</div>
+      <div class="research-venue">In Preparation · Target: AIES / FAccT</div>
       <div class="research-title">Demographic Bias in LLM-Generated Career Guidance: An Empirical Analysis</div>
-      <div class="research-authors"><strong>Md Shahnawaj Alom Limon</strong>, Dr. Tahmid Rashid</div>
-      <div class="research-abstract">
-        Investigates how large language models encode demographic biases — across gender, race, and socioeconomic signals — 
-        when generating career recommendations. Proposes empirical evaluation frameworks for detecting and measuring 
-        disparate outcomes in NLP-driven advisory systems, with implications for equitable AI deployment in high-stakes contexts.
-      </div>
+      <div class="research-authors"><strong>Md Shahnawaj Alom Limon</strong>, Dr. Tahmid Rashid · Illinois State University</div>
+      <div class="research-abstract">Investigates how large language models encode demographic biases — across gender, race, and socioeconomic signals — when generating career recommendations. Proposes empirical evaluation frameworks for detecting and measuring disparate outcomes in NLP-driven advisory systems, with implications for equitable AI deployment in high-stakes contexts.</div>
     </div>
-
     <div class="interest-grid reveal">
-      <div class="interest-item">
-        <span class="interest-icon">⚖️</span>
-        <div class="interest-label">Algorithmic Fairness</div>
-        <div class="interest-sub">Bias detection & mitigation</div>
-      </div>
-      <div class="interest-item">
-        <span class="interest-icon">🔍</span>
-        <div class="interest-label">Explainability</div>
-        <div class="interest-sub">Interpretable ML systems</div>
-      </div>
-      <div class="interest-item">
-        <span class="interest-icon">🛡️</span>
-        <div class="interest-label">Robustness</div>
-        <div class="interest-sub">Adversarial resilience</div>
-      </div>
-      <div class="interest-item">
-        <span class="interest-icon">🌐</span>
-        <div class="interest-label">NLP & LLMs</div>
-        <div class="interest-sub">Trustworthy language models</div>
-      </div>
+      <div class="interest-item"><span class="interest-icon">⚖️</span><div class="interest-label">Algorithmic Fairness</div><div class="interest-sub">Bias detection &amp; mitigation</div></div>
+      <div class="interest-item"><span class="interest-icon">🔍</span><div class="interest-label">Explainable AI</div><div class="interest-sub">Interpretable ML systems</div></div>
+      <div class="interest-item"><span class="interest-icon">🛡️</span><div class="interest-label">Robustness in ML</div><div class="interest-sub">Adversarial resilience</div></div>
+      <div class="interest-item"><span class="interest-icon">🌐</span><div class="interest-label">NLP / LLMs</div><div class="interest-sub">Trustworthy language models</div></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="contact-grid">
@@ -939,51 +421,24 @@
         <div class="section-line"></div>
         <div class="section-label">Get in Touch</div>
         <h2 class="section-title">Let's build<br>something <em>real</em></h2>
-        <p style="font-size:15px;color:var(--muted);max-width:400px;">
-          Open to software engineering roles, research positions, and PhD opportunities starting Fall 2026. 
-          Currently on OPT — available immediately.
-        </p>
+        <p style="font-size:15px;color:var(--muted);max-width:400px;">Open to software engineering and ML engineering roles. Currently on OPT — available immediately. Open to relocation across the US.</p>
         <ul class="contact-links">
-          <li>
-            <a href="mailto:limon.nawaj@gmail.com">
-              <span>limon.nawaj@gmail.com</span>
-              <span>→</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/limon-nawaj/" target="_blank">
-              <span>LinkedIn</span>
-              <span>↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/limon-nawaj" target="_blank">
-              <span>GitHub</span>
-              <span>↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://play.google.com/store/apps/details?id=com.limon.meetingassistant" target="_blank">
-              <span>Meeting Assistant on Google Play</span>
-              <span>↗</span>
-            </a>
-          </li>
+          <li><a href="mailto:mlimon3@ilstu.edu"><span>mlimon3@ilstu.edu</span><span>→</span></a></li>
+          <li><a href="https://www.linkedin.com/in/shahnawaj-alom-limon-21830745/" target="_blank"><span>LinkedIn</span><span>↗</span></a></li>
+          <li><a href="https://github.com/limon-nawaj" target="_blank"><span>GitHub</span><span>↗</span></a></li>
+          <li><a href="https://limon-nawaj.github.io/github.io" target="_blank"><span>Portfolio</span><span>↗</span></a></li>
         </ul>
       </div>
       <div class="contact-note reveal">
         <h3>Looking for the right fit</h3>
-        <p>Software engineering positions where design, data, and user impact intersect — especially in higher education, enterprise software, or AI-adjacent products.</p>
-        <p>Research roles or PhD programs focused on trustworthy ML, fairness, and explainability. I bring both a practitioner's instinct and a researcher's rigor.</p>
-        <div class="status-row">
-          <div class="status-dot"></div>
-          <span>Available · Normal, IL · Open to relocation</span>
-        </div>
+        <p>Software engineering or ML engineering roles where deep backend expertise and applied ML combine — fintech, enterprise platforms, data-intensive products, or research-adjacent teams.</p>
+        <p>I bring a decade of shipping production systems and a researcher's instinct for building things that are not just functional, but trustworthy.</p>
+        <div class="status-row"><div class="status-dot"></div><span>Available · Normal, IL · Open to relocation</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
     <span>© 2026 Md Shahnawaj Alom <span>Limon</span></span>
@@ -992,33 +447,12 @@
 </footer>
 
 <script>
-  // Cursor
-  const dot  = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  document.addEventListener('mousemove', e => {
-    dot.style.left  = e.clientX + 'px';
-    dot.style.top   = e.clientY + 'px';
-    ring.style.left = e.clientX + 'px';
-    ring.style.top  = e.clientY + 'px';
-  });
-
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
+  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  document.addEventListener('mousemove',e=>{dot.style.left=ring.style.left=e.clientX+'px';dot.style.top=ring.style.top=e.clientY+'px'});
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target)}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
